@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link href="style.css" rel="stylesheet" />
+
+  <title>おみくじアプリ</title>
+</head>
+
+<body>
+  <div class="app-header-contents">
+    <h1>- おみくじアプリ -</h1>
+    <h2>今日のあなたの運勢は・・・</h2>
+    <button class="start-button js-fortune-start" type="button">
+      運勢を占う！
+    </button>
+  </div>
+
+  <div class="result">
+    <div class="row">
+      <div class="radius money">
+        <p class="title">金運</p>
+        <p class="stars"></p>
+        <p class="detail"></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="radius work">
+        <p class="title">仕事運</p>
+        <p class="stars"></p>
+        <p class="detail"></p>
+      </div>
+      <div class="radius health">
+        <p class="title">健康運</p>
+        <p class="stars"></p>
+        <p class="detail"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    // ここに処理を記載します
+  $(function () {
+    //fortuneResultsオブジェクトを定義
+    let stars=["★★★","★★","★"]//星は共通
+    let moneys = ["最高の金運です！いつの間にかお金が溜まっているかも・・・？", "まずまず金運です！使いすぎには注意しましょう！", "悪い傾向が見られます！財布の紐は絞めておくと吉です！"]
+    let works = ["最高の仕事運です！いつも以上にチャンスが巡ってくるかも・・・？", "まずまず仕事運です！普段通り仕事が進むでしょう！", "悪い傾向が見られます！自信過剰にならないように注意しましょう"]
+    let healths= ["最高の健康運です！ランニングの距離を伸ばしても良いですね！", "まずまず健康運です！無理せず体を動かしましょう！", "悪い傾向が見られます！ケガにご注意を・・・"]
+
+    //buttonのstart-buttonクラスをクラスセレクタに設定してイベントを作成
+    $(document).on('click', '.start-button', function () {
+      //js-fortune-startがあるときとないときで条件分け
+      if($(this).hasClass('js-fortune-start')){
+        //金運
+        let js_money_num = Math.floor(Math.random() * 3); //「Math.floor()と「Math.random()」を使用して0~2の乱数を生成
+        let moneystar = stars[js_money_num]
+        let moneydetail = moneys[js_money_num]
+        $(".money").find(".stars").text(moneystar) //moneyクラス中のstarsクラスを探してテキストを書き換え
+        $(".money").find(".detail").text(moneydetail)//moneyクラスの中のdetailクラスを探してテキストを書き換え
+
+        //仕事運
+        let js_work_num = Math.floor(Math.random() * 3); //「Math.floor()と「Math.random()」を使用して0~2の乱数を生成
+        let workstar = stars[js_work_num]
+        let workdetail = works[js_work_num]
+        $(".work").find(".stars").text(workstar) //workクラス中のstarsクラスを探してテキストを書き換え
+        $(".work").find(".detail").text(workdetail)//workクラスの中のdetailクラスを探してテキストを書き換え
+
+        //健康運
+        let js_health_num = Math.floor(Math.random() * 3); //「Math.floor()と「Math.random()」を使用して0~2の乱数を生成
+        let healthstar = stars[js_health_num]
+        let healthdetail = healths[js_health_num]
+        $(".health").find(".stars").text(healthstar) //healthクラス中のstarsクラスを探してテキストを書き換え
+        $(".health").find(".detail").text(healthdetail)//healthクラスの中のdetailクラスを探してテキストを書き換え
+
+        $(".result").show()//resultで見せるか見せないかのコードになる。hide(見せない)show(見せる)
+        $(this).text('もう一度占う')
+        $(this).toggleClass('js-fortune-start');//classの中にjs-fortune-startというclass名があれば消す、なければ付ける
+      }else{
+        $(".result").hide()//resultで見せるか見せないかのコードになる。hide(見せない)show(見せる)
+        $(this).text('運勢を占う')
+        $(this).toggleClass('js-fortune-start');
+      }
+      
+
+    })
+    })
+  </script>
+</body>
+
+</html>
